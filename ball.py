@@ -30,7 +30,7 @@ class Ball(Sprite):
 
         self.settings = Settings
         
-    def update(self,paddle1,paddle2,paddle3,paddle4,score):
+    def update(self,paddle1,paddle2,paddle3,paddle4,paddle5,paddle6,score):
 
         ball = self.rect
 
@@ -62,7 +62,7 @@ class Ball(Sprite):
                 self.centerx -= self.settings.ballSpeed
             
             #if ball hits bottom window bounce off
-            if ball.bottom >= self.screenRect.bottom:
+            if (ball.colliderect(paddle4) or ball.colliderect(paddle6)):
                 self.movingDown = False
                 self.movingUp = True
             
@@ -132,7 +132,7 @@ class Ball(Sprite):
                 self.centerx += -(self.settings.ballSpeed)
 
                 #speed up the ball after each paddle strikes
-                self.settings.ballSpeed += 0.01
+                self.settings.ballSpeed += 0.001
             
             #player 1
             #if ball bottom edge is below paddle top, also if ball top edge is above paddle bottom edge, and if they are touching ball left touches paddle right
@@ -160,7 +160,7 @@ class Ball(Sprite):
                 self.centerx += self.settings.ballSpeed
 
                 #speed up ball after each strike
-                self.settings.ballSpeed += 0.01
+                self.settings.ballSpeed += 0.001
 
         #ball moving up in either direction
         if self.movingUp:
@@ -183,7 +183,7 @@ class Ball(Sprite):
                 self.centerx -= self.settings.ballSpeed
 
             #if ball hits top window edge bounce
-            if ball.top <= self.screenRect.top:
+            if (ball.colliderect(paddle3) or ball.colliderect(paddle5)):
                 self.movingUp = False
                 self.movingDown = True
 
@@ -213,7 +213,7 @@ class Ball(Sprite):
                 self.centerx += -(self.settings.ballSpeed)
 
                 #speed up ball after each strike
-                self.settings.ballSpeed += 0.01
+                self.settings.ballSpeed += 0.001
 
             #player 1 left side paddle
             #check if there is a collision between ball and paddle rect
@@ -241,28 +241,30 @@ class Ball(Sprite):
                 self.centerx += self.settings.ballSpeed
 
                 #speed up ball after each strike
-                self.settings.ballSpeed += 0.01
+                self.settings.ballSpeed += 0.001
 
-        #check if either player has scored
-        #if ball hits left or right window
-        if ball.left >= self.screenRect.right:
-            score.player1Score += 1
-            self.settings.ballSpeed = 1.3
-            score.prep_score()
-            #Start each new ship at the bottom center of the screen.
-            self.rect.centerx = self.screenRect.centerx
-            self.rect.centery = self.screenRect.centery
-            self.centerx = float(self.rect.centerx)
-            self.centery = float(self.rect.centery) 
-        elif ball.right <= self.screenRect.left:
-            score.player2Score += 1
-            self.settings.ballSpeed = 1.3
-            score.prep_score()
-            #Start each new ship at the bottom center of the screen.
-            self.rect.centerx = self.screenRect.centerx
-            self.rect.centery = self.screenRect.centery
-            self.centerx = float(self.rect.centerx)
-            self.centery = float(self.rect.centery)
+        #check if ball out of bounds
+        if ball.top > self.screenRect.bottom or ball.bottom < self.screenRect.top or ball.left > self.screenRect.right or ball.right < self.screenRect.left:
+
+            #check on what side it went out of bounds
+            if ball.centerx > self.screenRect.centerx:
+                score.player1Score += 1
+                self.settings.ballSpeed = 0.3
+                score.prep_score()
+                self.rect.centerx = self.screenRect.centerx
+                self.rect.centery = self.screenRect.centery
+                self.centerx = float(self.rect.centerx)
+                self.centery = float(self.rect.centery)
+                #print("ball out on righ side")
+            elif ball.centerx < self.screenRect.centerx:
+                score.player2Score += 1
+                self.settings.ballSpeed = 0.3
+                score.prep_score()
+                self.rect.centerx = self.screenRect.centerx
+                self.rect.centery = self.screenRect.centery
+                self.centerx = float(self.rect.centerx)
+                self.centery = float(self.rect.centery)
+                #print("ball out of left side") 
 
         #new ball position
         self.rect.centerx = self.centerx
