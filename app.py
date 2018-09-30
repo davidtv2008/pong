@@ -1,6 +1,4 @@
 import pygame
-from pygame import Rect
-import sys
 from ball import Ball
 from paddle import Paddle
 import gameFunction as gf
@@ -10,8 +8,12 @@ from settings import Settings
 
 
 def app():
+    
     # initialize pygame
+    pygame.mixer.pre_init(22050, -16, 2, 512)
+    pygame.mixer.init()
     pygame.init()
+    pygame.mixer.music.load('resources/sound/hit.mp3')
 
     #create and open a window on the screen with given dimensions
     screen = pygame.display.set_mode((900,600))
@@ -21,6 +23,15 @@ def app():
 
     #make the play button
     play = Button(screen, "Play")
+
+    text_color = (255,255,255)
+    button_color = (39, 160, 205)
+    font = pygame.font.SysFont(None, 60)
+    center = screenRect.center
+        
+    msg_image = font.render("HELLO WORLD",True,text_color,button_color)
+    msg_image_rect = msg_image.get_rect()
+    msg_image_rect.center = center
 
     setting = Settings()
     setting.gameActive = False
@@ -48,6 +59,7 @@ def app():
             paddle5.update()
             paddle6.update()
             ball.update(paddle1,paddle2,paddle3,paddle4,paddle5,paddle6,score)
+        screen.blit(msg_image, msg_image_rect)
         gf.updateScreen(ball,screen,paddle1,paddle2,paddle3,paddle4,paddle5,paddle6,score,play,setting)
         #pygame.display.flip()
 app()
