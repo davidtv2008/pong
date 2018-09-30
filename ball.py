@@ -7,6 +7,8 @@ class Ball(Sprite):
     def __init__(self,screen):
         super(Ball,self).__init__()
         self.screen = screen
+
+        #load up audio file to be played on ball hit
         
         self.image = pygame.image.load('resources/images/ball.gif')
         self.rect = self.image.get_rect()
@@ -65,11 +67,14 @@ class Ball(Sprite):
             if (ball.colliderect(paddle4) or ball.colliderect(paddle6)):
                 self.movingDown = False
                 self.movingUp = True
+                pygame.mixer.music.play()
+        
             
             #player 2 right side paddle
             #if ball bottom edge is below paddle top, also if ball top edge is above paddle bottom edge, and if they are touching ball right touches paddle left
             #if ball.bottom > paddle2.y[0] and ball.top < paddle2.y[8] and ball.right == paddle2.rect.left:
             if ball.colliderect(paddle2.rect):
+                pygame.mixer.music.play()
                 if ball.bottom > paddle2.y[0] and ball.top < paddle2.y[1]:
                     if paddle2.movingUp:
                         self.centery += 0.8
@@ -137,7 +142,7 @@ class Ball(Sprite):
             #player 1
             #if ball bottom edge is below paddle top, also if ball top edge is above paddle bottom edge, and if they are touching ball left touches paddle right
             if ball.colliderect(paddle1.rect):  
-                
+                pygame.mixer.music.play()
                 if ball.bottom > paddle1.y[0] and ball.top < paddle1.y[1]:
                     self.centery += 0.2
                 elif ball.bottom > paddle1.y[1] and ball.top < paddle1.y[2]:
@@ -186,10 +191,13 @@ class Ball(Sprite):
             if (ball.colliderect(paddle3) or ball.colliderect(paddle5)):
                 self.movingUp = False
                 self.movingDown = True
+                pygame.mixer.music.play()
+        
 
             #player2 right side paddle
             #if ball bottom is bellow paddle top, and ball top is above paddle bottom, and ball right side is touching paddle left side 
             if ball.colliderect(paddle2.rect):
+                pygame.mixer.music.play()
 
                 if ball.bottom > paddle2.y[0] and ball.top < paddle2.y[1]:
                     self.centery += 0.2
@@ -218,7 +226,8 @@ class Ball(Sprite):
             #player 1 left side paddle
             #check if there is a collision between ball and paddle rect
             if ball.colliderect(paddle1.rect):
-                
+                pygame.mixer.music.play()
+                        
                 if ball.bottom > paddle1.y[0] and ball.top < paddle1.y[1]:
                     self.centery += 0.2
                 elif ball.bottom > paddle1.y[1] and ball.top < paddle1.y[2]:
@@ -248,8 +257,8 @@ class Ball(Sprite):
 
             #check on what side it went out of bounds
             if ball.centerx > self.screenRect.centerx:
-                score.player1Score += 1
-                self.settings.ballSpeed = 0.3
+                score.player2Score += 1
+                self.settings.ballSpeed = 0.5
                 score.prep_score()
                 self.rect.centerx = self.screenRect.centerx
                 self.rect.centery = self.screenRect.centery
@@ -257,8 +266,8 @@ class Ball(Sprite):
                 self.centery = float(self.rect.centery)
                 #print("ball out on righ side")
             elif ball.centerx < self.screenRect.centerx:
-                score.player2Score += 1
-                self.settings.ballSpeed = 0.3
+                score.player1Score += 1
+                self.settings.ballSpeed = 0.5
                 score.prep_score()
                 self.rect.centerx = self.screenRect.centerx
                 self.rect.centery = self.screenRect.centery

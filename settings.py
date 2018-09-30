@@ -3,8 +3,8 @@ import sys
 
 class Settings:
 
-    ballSpeed = 0.3
-    paddleSpeed = 1.2
+    ballSpeed = 0.5
+    paddleSpeed = 0.8
     gameActive = False
 
     

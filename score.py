@@ -34,11 +34,11 @@ class Score():
         self.score_rect1 = self.score_image1.get_rect()
         self.score_rect2 = self.score_image2.get_rect()
         
-        self.score_rect1.right = self.screen_rect.left + 50
-        self.score_rect2.left = self.screen_rect.right - 50
+        self.score_rect1.right = self.screen_rect.centerx +80
+        self.score_rect2.left = self.screen_rect.centerx - 80
 
-        self.score_rect1.top = 20
-        self.score_rect2.top = 20
+        self.score_rect1.top = 30
+        self.score_rect2.top = 30
             
     def showScore(self):
         """Draw score to the screen."""

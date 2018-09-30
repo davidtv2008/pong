@@ -12,6 +12,27 @@ def checkEvents(ball,screen,paddle1,paddle2,paddle3,paddle4,paddle5,paddle6,play
         elif event.type ==pygame.MOUSEBUTTONDOWN:
             mouse_x,mouse_y = pygame.mouse.get_pos()
             check_play_button(play,mouse_x,mouse_y,setting)
+    
+    ball = ball.rect
+    if paddle1.rect.top > ball.centery:
+        paddle1.movingUp = True
+        paddle1.movingDown = False
+    if paddle1.rect.bottom < ball.centery:
+        paddle1.movingDown = True
+        paddle1.movingUp = False
+
+    if paddle3.rect.right < ball.centerx:
+        paddle3.movingRight = True
+        paddle3.movingLeft = False
+    if paddle3.rect.left > ball.centerx:
+        paddle3.movingLeft = True
+        paddle3.movingRight = False
+    if paddle4.rect.right < ball.centerx:
+        paddle4.movingRight = True
+        paddle4.movingLeft = False
+    if paddle4.rect.left > ball.centerx:
+        paddle4.movingLeft = True
+        paddle4.movingRight = False
         
 def check_play_button(play,mouse_x,mouse_y,setting):
     """Start a new game when the player click Play."""
@@ -26,21 +47,20 @@ def check_play_button(play,mouse_x,mouse_y,setting):
         #reset the game statistics
 
 def checkKeyDownEvents(event,ball,screen,paddle1,paddle2,paddle3,paddle4,paddle5,paddle6):
-
     if event.key == pygame.K_UP:
-        paddle1.movingUp = True
+        #paddle1.movingUp = True
         paddle2.movingUp = True
     if event.key == pygame.K_DOWN:
-        paddle1.movingDown = True
+        #paddle1.movingDown = True
         paddle2.movingDown = True
     if event.key == pygame.K_RIGHT:
-        paddle3.movingRight = True
-        paddle4.movingRight = True
+        #paddle3.movingRight = True
+        #paddle4.movingRight = True
         paddle5.movingRight = True
         paddle6.movingRight = True
     if event.key == pygame.K_LEFT:
-        paddle3.movingLeft = True
-        paddle4.movingLeft = True
+        #paddle3.movingLeft = True
+        #paddle4.movingLeft = True
         paddle5.movingLeft = True
         paddle6.movingLeft = True    
     if event.key == pygame.K_q:
@@ -48,19 +68,19 @@ def checkKeyDownEvents(event,ball,screen,paddle1,paddle2,paddle3,paddle4,paddle5
 
 def checkKeyUpEvents(event,ball,screen,paddle1,paddle2,paddle3,paddle4,paddle5,paddle6):
     if event.key == pygame.K_UP:
-        paddle1.movingUp = False
+        #paddle1.movingUp = False
         paddle2.movingUp = False
     if event.key == pygame.K_DOWN:
-        paddle1.movingDown = False
+        #paddle1.movingDown = False
         paddle2.movingDown = False
     if event.key == pygame.K_RIGHT:
-        paddle3.movingRight = False
-        paddle4.movingRight = False
+        #paddle3.movingRight = False
+        #paddle4.movingRight = False
         paddle5.movingRight = False
         paddle6.movingRight = False
     if event.key == pygame.K_LEFT:
-        paddle3.movingLeft = False
-        paddle4.movingLeft = False
+        #paddle3.movingLeft = False
+        #paddle4.movingLeft = False
         paddle5.movingLeft = False
         paddle6.movingLeft = False
     

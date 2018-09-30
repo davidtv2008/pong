@@ -73,16 +73,22 @@ class Paddle(Sprite):
     def update(self):
         #player key events
         if self.movingUp and self.rect.top > self.screenRect.top:
-            self.centery -= self.settings.paddleSpeed
+            if self.player == 1 or self.player == 3 or self.player == 4:
+                self.centery -= 0.5
+            else:
+                self.centery -= self.settings.paddleSpeed
                 
         if self.movingDown and self.rect.bottom < self.screenRect.bottom:
-            self.centery += self.settings.paddleSpeed
+            if self.player == 1 or self.player == 3 or self.player == 4:
+                self.centery += 0.5
+            else:
+                self.centery += self.settings.paddleSpeed
 
         if (self.player == 3 or self.player == 4) and self.movingRight and self.rect.right < self.screenRect.centerx:
-            self.centerx += self.settings.paddleSpeed
+            self.centerx += 0.5
 
         if (self.player == 3 or self.player == 4) and self.movingLeft and self.rect.left > self.screenRect.left:
-            self.centerx -= self.settings.paddleSpeed
+            self.centerx -= 0.5
         
         if (self.player == 5 or self.player == 6) and self.movingRight and self.rect.right < self.screenRect.right:
             self.centerx += self.settings.paddleSpeed
